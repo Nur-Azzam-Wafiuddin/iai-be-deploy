@@ -1,6 +1,26 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-let previousData = {};
+interface LocationData {
+    id: string;
+    type: string;
+    geometry: {
+        type: string;
+        coordinates: number[];
+    };
+    properties: {
+        location: string;
+        air_quality_index: number;
+        pm10: number;
+        pm2_5: number;
+        o3: number;
+        no2: number;
+        so2: number;
+        co: number;
+        timestamp: string;
+    };
+}
+
+let previousData: LocationData[] = [];
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -120,6 +140,7 @@ function generateInitialRandomData() {
     });
 }
 
+
 function updateDataWithInterpolation() {
     const newData = previousData.map(data => {
         const newProperties = {
@@ -155,7 +176,7 @@ function interpolateValueInt(prevValue, min, max) {
 }
 
 
-export default function handler(req, res) {
+export default function handler(req: VercelRequest, res: VercelResponse) {
   const { name = 'World' } = req.query
   const data = {
     type: "FeatureCollection",
