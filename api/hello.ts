@@ -127,7 +127,7 @@ function generateInitialRandomData() {
             },
             properties: {
                 location: locations[index],
-                air_quality_index: getRandomInt(25, 200),
+                air_quality_index: getRandomInt(40, 350),
                 pm10: getRandomInt(20, 80),
                 pm2_5: getRandomInt(10, 50),
                 o3: getRandomInt(30, 100),
@@ -144,7 +144,7 @@ function generateInitialRandomData() {
 function updateDataWithInterpolation() {
     const newData = previousData.map(data => {
         const newProperties = {
-            air_quality_index: interpolateValueInt(data.properties.air_quality_index, 10, 200),
+            air_quality_index: interpolateValueInt(data.properties.air_quality_index, 40, 350),
             pm10: interpolateValueInt(data.properties.pm10, 20, 80),
             pm2_5: interpolateValueInt(data.properties.pm2_5, 10, 50),
             o3: interpolateValueInt(data.properties.o3, 30, 100),
